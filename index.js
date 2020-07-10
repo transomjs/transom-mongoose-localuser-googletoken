@@ -1,7 +1,7 @@
 'use strict';
 const debug = require('debug')('transom:google');
 const jwt = require('jsonwebtoken');
-const GoogleStrategy = require('./lib/GoogleStrategy');
+const GoogleStrategy = require('./lib/GoogleTokenStrategy');
 
 function TransomLocalUserGoogleToken() {
     this.initialize = function (server, options) {
