@@ -1,9 +1,9 @@
 "use strict";
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const FacebookStrategy = require('../lib/FacebookTokenStrategy');
+const GoogleStrategy = require('../lib/GoogleTokenStrategy');
 
-describe('FacebookStrategy', function () {
+describe('GoogleStrategy', function () {
 
     beforeEach(function () {
         // Stub out a mock
