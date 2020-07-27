@@ -12,7 +12,11 @@ function TransomLocalUserGoogleToken() {
         const uriPrefix = server.registry.get('transom-config.definition.uri.prefix');
         const googleDefn = server.registry.get('transom-config.definition.google', {});
         const googleOptions = Object.assign({}, { baseApiUri: 'http://localhost' }, options, googleDefn);
-        const strategy = new GoogleStrategy(server, googleOptions).createStrategy();
+        const strategy = new GoogleStrategy(server, googleOptions).createStrategy();        
+        googleOptions.secure = googleOptions.secure || false;
+        googleOptions.sameSite = googleOptions.sameSite || undefined;
+        googleOptions.token = googleOptions.token || 'access_token';
+        googleOptions.path = googleOptions.path || '/';
 
         const passport = server.registry.get('passport');
         passport.use(strategyName, strategy);
@@ -32,13 +36,13 @@ function TransomLocalUserGoogleToken() {
             return Object.assign(
                 {},
                 {
-                    path: '/',
+                    path: googleOptions.path,
                     domain: googleOptions.baseApiUri.replace('://', ':').split(':')[1] || 'localhost',
                     expires: expireDate,
-                    secure: false,
-                    sameSite: 'None',
+                    secure: googleOptions.secure,
+                    sameSite: googleOptions.sameSite,
                     httpOnly: true,
-                    token: 'access_token',
+                    token: googleOptions.token
                 },
                 googleOptions.cookie
             );
