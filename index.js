@@ -71,18 +71,7 @@ function TransomLocalUserGoogleToken() {
         function disconnectSocketUser(user) {
             const msgClient = server.registry.get('transomMessageClient');
             if (msgClient) {
-                const io = msgClient.io;
-                Object.keys(io.sockets.sockets)
-                    .filter(function (key) {
-                        return io.sockets.sockets[key].transomUser._id.toString() === user._id.toString();
-                    })
-                    .map(function (socketKey) {
-                        // msgClient.emitToUsers(user, "what channel?", "bye!");;
-                        if (io.sockets.sockets[socketKey]) {
-                            debug(`Disconnecting socket user.`);
-                            io.sockets.sockets[socketKey].disconnect();
-                        }
-                    });
+                msgClient.disconnectUsers(user, true);
             }
         }
 
