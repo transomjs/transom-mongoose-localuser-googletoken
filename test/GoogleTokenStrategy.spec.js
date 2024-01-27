@@ -1,12 +1,15 @@
 "use strict";
-const expect = require('chai').expect;
+// const expect = require('chai').expect;
 const sinon = require('sinon');
 const GoogleStrategy = require('../lib/GoogleTokenStrategy');
 
 describe('GoogleStrategy', function () {
+    let expect;
 
-    beforeEach(function () {
-        // Stub out a mock
+    before(function () {
+        return import('chai').then(function (chai) {
+            expect = chai.expect;
+        });
     });
 
     afterEach(function () {
